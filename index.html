@@ -1,7 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Matrix Board</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        .matrix-board {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            width: 600px;
+            max-width: 90%;
+            text-align: center;
+            display: none; /* Hidden by default */
+            box-shadow: 0 0 20px #00ff00;
+        }
+
+        .matrix-text {
+            font-size: 24px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+    <div id="matrixBoard" class="matrix-board">
+        <div id="matrixText" class="matrix-text">Welcome to the Matrix...</div>
+    </div>
+
+    <script>
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            if (data.action === "show") {
+                document.getElementById('matrixText').innerText = data.text || "Matrix Data Here";
+                document.getElementById('matrixBoard').style.display = "block";
+            } else if (data.action === "hide") {
+                document.getElementById('matrixBoard').style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
